@@ -93,40 +93,43 @@ class AiMeditationForMeditationEnthusiast:
         """
         audio = generate(
         text= meditation_text,
-        voice="Alice", # voice = fyBecD9ob2G4owaPSkMt # this is id not sure if this is gonna work
+        voice="fyBecD9ob2G4owaPSkMt", # voice = fyBecD9ob2G4owaPSkMt # this is id not sure if this is gonna work
         model="eleven_monolingual_v1"
         )
         # # uncomment to play audio when it's generated. 
         # play(audio)
+        file_path = f"./audio_files/{self.user_name}_meditation.wav"
         save(
             audio = audio, # Audio bytes (returned by generate)
-            filename = "./audio_files/audio_sample_2.wav"# Filename to save audio to (e.g. "audio.wav")
+            filename = file_path# Filename to save audio to (e.g. "audio.wav")
         ) 
-        return "audio saved"
+        return file_path
 
 
-def run_app():
-    """
-    Main entry point for application.
-    """
-    user_name = input("Enter your name: ")
-    goal = input("Enter your meditation goal: ")
+# def run_app():
+#     """
+#     Main entry point for application.
+#     """
+#     user_name = input("Enter your name: ")
+#     goal = input("Enter your meditation goal: ")
 
-    prefers_guided_meditation = input("Do you prefer guided meditation? (Yes/No): ") == "Yes"
-    background_sounds = input("Enter your preferred background sounds (comma-separated): ").split(',')
-    duration = input("Enter your preferred duration (5 minutes, 15 minutes, 30 minutes, 60 minutes): ")
+#     prefers_guided_meditation = input("Do you prefer guided meditation? (Yes/No): ") == "Yes"
+#     background_sounds = input("Enter your preferred background sounds (comma-separated): ").split(',')
+#     duration = input("Enter your preferred duration (5 minutes, 15 minutes, 30 minutes, 60 minutes): ")
 
-    preferences = {
-        "prefers_guided_meditation": prefers_guided_meditation,
-        "background_sounds": background_sounds,
-        "duration": duration
-    }
+#     preferences = {
+#         "prefers_guided_meditation": prefers_guided_meditation,
+#         "background_sounds": background_sounds,
+#         "duration": duration
+#     }
 
-    user = AiMeditationForMeditationEnthusiast(user_name, preferences)
-    meditation_text = user.generate_meditation(goal)
-    # prompt_suggestions = user.generate_prompt_suggestions()
-    # print("AI suggested prompts: ", prompt_suggestions)
-    meditation_text = meditation_text[:2500]
-    user.generate_voiceover(meditation_text)
-if __name__ == "__main__":
-    run_app()
+
+
+#     user = AiMeditationForMeditationEnthusiast(user_name, preferences)
+#     meditation_text = user.generate_meditation(goal)
+#     # prompt_suggestions = user.generate_prompt_suggestions()
+#     # print("AI suggested prompts: ", prompt_suggestions)
+#     meditation_text = meditation_text[:2500]
+#     user.generate_voiceover(meditation_text)
+# if __name__ == "__main__":
+#     run_app()
