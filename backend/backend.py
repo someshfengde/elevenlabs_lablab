@@ -1,3 +1,4 @@
+#%%
 import openai
 import os
 from rich.console import Console
@@ -7,9 +8,11 @@ from elevenlabs import set_api_key, generate, play, save
 load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
+print(os.getenv('ELEVENLABS_API_KEY'))
 set_api_key(os.getenv('ELEVENLABS_API_KEY'))
 if not openai.api_key:
     raise ValueError("OpenAI API Key not found in environment variables")
+
 
 
 
@@ -93,7 +96,7 @@ class AiMeditationForMeditationEnthusiast:
         """
         audio = generate(
         text= meditation_text,
-        voice="fyBecD9ob2G4owaPSkMt", # voice = fyBecD9ob2G4owaPSkMt # this is id not sure if this is gonna work
+        voice="bTJzpYydewofxgh5fyUI", # voice = fyBecD9ob2G4owaPSkMt # this is id not sure if this is gonna work
         model="eleven_monolingual_v1"
         )
         # # uncomment to play audio when it's generated. 
@@ -133,3 +136,19 @@ class AiMeditationForMeditationEnthusiast:
 #     user.generate_voiceover(meditation_text)
 # if __name__ == "__main__":
 #     run_app()
+# %%
+
+import requests
+
+url = "https://api.elevenlabs.io/v1/voices"
+
+headers = {
+  "Accept": "application/json",
+  "xi-api-key": "df65b267eb31cc6af839be0fc95b679c"
+}
+
+response = requests.get(url, headers=headers)
+
+print(response.text)
+
+# %%
