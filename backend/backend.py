@@ -3,15 +3,15 @@ import os
 from rich.console import Console
 from dotenv import load_dotenv
 from elevenlabs import set_api_key, generate, play, save
+from pydub import AudioSegment
 
 load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
+print(os.getenv('ELEVENLABS_API_KEY'))
 set_api_key(os.getenv('ELEVENLABS_API_KEY'))
 if not openai.api_key:
     raise ValueError("OpenAI API Key not found in environment variables")
-
-
 
 class AiMeditationForMeditationEnthusiast:
     """
@@ -82,7 +82,7 @@ class AiMeditationForMeditationEnthusiast:
         temperature=0.7
         )
         return response['choices'][0]['message']['content']
-    
+
     def generate_voiceover(self, meditation_text): 
         """Generates a voiceover from meditation text
 
@@ -93,43 +93,34 @@ class AiMeditationForMeditationEnthusiast:
         """
         audio = generate(
         text= meditation_text,
-        voice="fyBecD9ob2G4owaPSkMt", # voice = fyBecD9ob2G4owaPSkMt # this is id not sure if this is gonna work
+        voice="EXAVITQu4vr4xnSDxMaL", 
         model="eleven_monolingual_v1"
         )
-        # # uncomment to play audio when it's generated. 
-        # play(audio)
-        file_path = f"./audio_files/{self.user_name}_meditation.wav"
+
+        mp3_file_path = os.path.join(".", "audio_files", f"{self.user_name}_meditation.mp3")
+        os.makedirs(os.path.dirname(mp3_file_path), exist_ok=True)
+
         save(
-            audio = audio, # Audio bytes (returned by generate)
-            filename = file_path# Filename to save audio to (e.g. "audio.wav")
+            audio = audio,
+            filename = mp3_file_path
         ) 
-        return file_path
 
+        # Convert .mp3 to .wav
+        wav_file_path = mp3_file_path.replace('.mp3', '.wav')
+        audio = AudioSegment.from_mp3(mp3_file_path)
+        audio.export(wav_file_path, format='wav')
 
-# def run_app():
-#     """
-#     Main entry point for application.
-#     """
-#     user_name = input("Enter your name: ")
-#     goal = input("Enter your meditation goal: ")
+        return wav_file_path
 
-#     prefers_guided_meditation = input("Do you prefer guided meditation? (Yes/No): ") == "Yes"
-#     background_sounds = input("Enter your preferred background sounds (comma-separated): ").split(',')
-#     duration = input("Enter your preferred duration (5 minutes, 15 minutes, 30 minutes, 60 minutes): ")
+import requests
 
-#     preferences = {
-#         "prefers_guided_meditation": prefers_guided_meditation,
-#         "background_sounds": background_sounds,
-#         "duration": duration
-#     }
+url = "https://api.elevenlabs.io/v1/voices"
 
+headers = {
+  "Accept": "application/json",
+  "xi-api-key": "df65b267eb31cc6af839be0fc95b679c"
+}
 
+response = requests.get(url, headers=headers)
 
-#     user = AiMeditationForMeditationEnthusiast(user_name, preferences)
-#     meditation_text = user.generate_meditation(goal)
-#     # prompt_suggestions = user.generate_prompt_suggestions()
-#     # print("AI suggested prompts: ", prompt_suggestions)
-#     meditation_text = meditation_text[:2500]
-#     user.generate_voiceover(meditation_text)
-# if __name__ == "__main__":
-#     run_app()
+print(response.text)
