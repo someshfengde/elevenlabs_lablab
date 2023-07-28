@@ -10,7 +10,9 @@ const StartMeditationButton =  () => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "background": "rain"
+      "background": "rain", 
+      "username": "test",
+      "goal": goal,
     });
 
     var requestOptions = {
@@ -20,7 +22,7 @@ const StartMeditationButton =  () => {
       redirect: 'follow'
     };
 
-    const response = await fetch("http://127.0.0.1:5000/combine_audio",
+    const response = await fetch("http://127.0.0.1:5000/generate_meditation",
     requestOptions).catch(error => console.log('error', error)); 
     const audioBlob = await response.blob();
     const audioUrl = URL.createObjectURL(audioBlob);
