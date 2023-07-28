@@ -4,7 +4,16 @@ from backend import generate_meditation_text, generate_voiceover, combine_audio_
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app)
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+    return response
+
+# CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -26,7 +35,7 @@ def generate_customised_meditation():
         username = "User"
     meditation_text = generate_meditation_text(goal, username)
     voice_audio_path = generate_voiceover(meditation_text, username)
-    return send_file(voice_audio_path, as_attachment=True)
+    return send_file(voice_audio_path,  mimetype='audio/mpeg')
 
 @app.route('/combine_audio', methods=['POST'])
 def combine_audio():
@@ -43,7 +52,7 @@ def combine_audio():
         med_text = generate_meditation_text("meditation", user)
         voice_audio_path = generate_voiceover(med_text, user)
     combined_audio_path = combine_audio_files(voice_audio_path, background_audio_path)
-    return send_file(combined_audio_path, as_attachment=True)
+    return send_file(combined_audio_path,  mimetype='audio/mpeg')
 
 if __name__ == "__main__":
     app.run()

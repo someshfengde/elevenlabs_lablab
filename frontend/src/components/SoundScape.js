@@ -6,6 +6,7 @@ const sounds = ['music', 'nature', 'rain', 'ocean', 'chimes', 'storm'];
 function Soundscape() {
   const [audioSrc, setAudioSrc] = useState(null);
   const [selectedSound, setSelectedSound] = useState(null);
+  const [audioElement, setAudioElement] = useState(null);
 
   const fetchCombinedAudio = async () => {
     try {
@@ -36,13 +37,27 @@ function Soundscape() {
   const playAudio = () => {
     if (selectedSound && audioSrc) {
       console.log('playing audio');
-      const audioElement = new Audio(audioSrc);
-      audioElement.play();
+      if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+      }
+      const newAudioElement = new Audio(audioSrc);
+      setAudioElement(newAudioElement);
+      newAudioElement.play();
     }
   };
 
+  // Use useEffect to play audio when audioSrc changes
   useEffect(() => {
     playAudio();
+
+    // Clean up the previous audio element when audioSrc changes
+    return () => {
+      if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+      }
+    };
   }, [audioSrc]);
 
   return (
@@ -67,4 +82,3 @@ function Soundscape() {
 }
 
 export default Soundscape;
- 
