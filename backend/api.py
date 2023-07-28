@@ -5,14 +5,14 @@ from combine_audio import combine_audio_files
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
 mapping = {
-    "seashore" : os.path.join(current_dir, "backgrounds", "seashore.mp3"), 
-    "rain" : os.path.join(current_dir, "backgrounds", "rain.mp3"),
-    "thunder" : os.path.join(current_dir, "backgrounds", "thunder.mp3")
+    "seashore" : "./backgrounds/seashore.mp3",
+    "rain" : "./backgrounds/rain.mp3",
+    "thunder" : "./backgrounds/thunder.mp3",
 }
 
 preferences = {
@@ -38,7 +38,8 @@ def generate_meditation_text():
 def generate_voiceover():
     data = request.get_json()
     meditation_text = data['meditation_text']
-    voice_audio_path = user.generate_voiceover(meditation_text)
+    # voice_audio_path = user.generate_voiceover(meditation_text)
+    voice_audio_path = "/Users/somesh/Downloads/code/elevenlabs_lablab/backend/combined_audio/seashore_combined_audio_sample.wav"
     print(f"Generated voiceover written to {os.path.abspath(voice_audio_path)}")
     return send_file(voice_audio_path, as_attachment=True)
 
@@ -52,10 +53,11 @@ def download_background():
 def combine_audio():
     data = request.get_json()
     background_audio_path = mapping[data['background']]
-    voice_audio_path = os.path.join(".", "audio_files", f"{user.user_name}_meditation.wav")
+    print(f'background_audio_path: {background_audio_path}')
+    voice_audio_path = os.path.join("./", "audio_files", f"{user.user_name}_meditation.wav")
+    print(f'voice_audio_path: {voice_audio_path}')
     combined_audio_path = combine_audio_files(voice_audio_path, background_audio_path)
-    combined_audio_filename = os.path.basename(combined_audio_path)
-    return send_file(combined_audio_path, as_attachment=True, download_name=combined_audio_filename)
+    return send_file(combined_audio_path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run()

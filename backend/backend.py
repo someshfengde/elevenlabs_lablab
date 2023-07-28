@@ -113,15 +113,15 @@ class AiMeditationForMeditationEnthusiast:
 
         return wav_file_path
 
-import requests
+# import requests
 
-url = "https://api.elevenlabs.io/v1/voices"
+# url = "https://api.elevenlabs.io/v1/voices"
 
-headers = {
-  "Accept": "application/json",
-  "xi-api-key": "df65b267eb31cc6af839be0fc95b679c"
-}
+# headers = {
+#   "Accept": "application/json",
+#   "xi-api-key": "df65b267eb31cc6af839be0fc95b679c"
+# }
 
-response = requests.get(url, headers=headers)
+# response = requests.get(url, headers=headers)
 
-print(response.text)
+# print(response.text)
