@@ -1,3 +1,4 @@
+#%%
 import openai
 import os
 from rich.console import Console
