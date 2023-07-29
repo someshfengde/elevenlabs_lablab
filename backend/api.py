@@ -46,9 +46,10 @@ def generate_customised_meditation():
         username = "User"
     if not background:
         background = "ocean"
-    meditation_text = generate_meditation_text(goal, username, language)
-    voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
-    combined_audio_path = combine_audio_files(voice_audio_path, mapping[background])
+    # meditation_text = generate_meditation_text(goal, username, language)
+    # voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
+    # combined_audio_path = combine_audio_files(voice_audio_path, mapping[background])
+    combined_audio_path = "/Users/somesh/Downloads/code/elevenlabs_lablab/backend/combined_audio/music_combined_test_meditation.mp3"
     return send_file(combined_audio_path,  mimetype='audio/mpeg')
 
 @app.route('/combine_audio', methods=['POST'])
