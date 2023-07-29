@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Button from './Button';
 
 const sounds = ['music', 'nature', 'rain', 'ocean', 'chimes', 'storm'];
-
 function Soundscape() {
-  const [audioSrc, setAudioSrc] = useState(null);
   const [selectedSound, setSelectedSound] = useState(null);
+  const [audioSrc, setAudioSrc] = useState(null);
   const [audioElement, setAudioElement] = useState(null);
 
   const fetchCombinedAudio = async () => {
@@ -25,7 +24,6 @@ function Soundscape() {
         throw new Error('Failed to fetch the audio file');
       }
 
-      // Assuming the response is a Blob or a file from the server
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudioSrc(audioUrl);
@@ -36,7 +34,6 @@ function Soundscape() {
 
   const playAudio = () => {
     if (selectedSound && audioSrc) {
-      console.log('playing audio');
       if (audioElement) {
         audioElement.pause();
         audioElement.currentTime = 0;
@@ -47,11 +44,9 @@ function Soundscape() {
     }
   };
 
-  // Use useEffect to play audio when audioSrc changes
   useEffect(() => {
     playAudio();
 
-    // Clean up the previous audio element when audioSrc changes
     return () => {
       if (audioElement) {
         audioElement.pause();
@@ -61,9 +56,9 @@ function Soundscape() {
   }, [audioSrc]);
 
   return (
-    <div className="quadrant">
+    <div className="quadrant soundscape">
       <h2>Soundscape</h2>
-      <div className="option-grid">
+      <div className="soundscape-options">
         {sounds.map((sound, index) => (
           <Button
             key={index}
@@ -71,7 +66,6 @@ function Soundscape() {
             isSelected={selectedSound === sound}
             onClick={() => {
               setSelectedSound(sound);
-              console.log(selectedSound);
               fetchCombinedAudio();
             }}
           />

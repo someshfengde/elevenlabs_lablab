@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Button from './Button';
 
-const voices = ['Willow', 'Atlas', 'Daniel', 'Ester'];
+const voices = ['Rachel', 'Thomas', 'Emily'];
 
 function Voice() {
   const [selectedVoice, setSelectedVoice] = useState(null);
 
   return (
-    <div className="quadrant">
+    <div className="quadrant voice">
       <h2>Voice</h2>
-      <div className="option-grid">
+      <div className="voice-options">
         {voices.map((voice, index) => (
           <Button
             key={index}

@@ -1,7 +1,8 @@
 import React from 'react';
+import './index.css';
 import Header from './components/Header';
 import UserInput from './components/UserInput';
-import Soundscape from './components/SoundScape';
+import Soundscape from './components/Soundscape';
 import Language from './components/Language';
 import Duration from './components/Duration';
 import Voice from './components/Voice';
@@ -11,14 +12,18 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <UserInput />
-      <div className="options">
-        <Soundscape />
-        <Language />
-        <Duration />
-        <Voice />
+      <div className="content">
+        <UserInput />
+        <div className="options">
+          <Soundscape />
+          <Language />
+          <Duration />
+          <Voice />
+        </div>
       </div>
-      <StartMeditationButton />
+      <div className="start-button-container">
+        <StartMeditationButton />
+      </div>
     </div>
   );
 }

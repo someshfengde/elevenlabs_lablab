@@ -7,9 +7,9 @@ function Duration() {
   const [selectedDuration, setSelectedDuration] = useState(null);
 
   return (
-    <div className="quadrant">
+    <div className="quadrant duration">
       <h2>Duration</h2>
-      <div className="option-grid">
+      <div className="duration-options">
         {durations.map((duration, index) => (
           <Button
             key={index}

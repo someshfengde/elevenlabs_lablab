@@ -1,10 +1,13 @@
 import React from 'react';
+import LogoTopLeft from './Logo';
+import Illustration from './Illustration';
 
 const Header = () => {
     return (
       <div className="header">
-        <img src="/favicon.ico" alt="logo" className="logo" />
-        <img src="/favicon.ico" alt="profile" className="profile" />
+        <LogoTopLeft />
+        <Illustration />
+        <img src={`${process.env.PUBLIC_URL}/assets/New_User.png`} alt="profile" className="profile" />
       </div>
     );
 };

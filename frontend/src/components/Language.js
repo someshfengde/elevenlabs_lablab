@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Button from './Button';
 
-const languages = ['English', 'Espanol', 'Deutsh', 'Francais', 'Italiano', 'Portugues', 'Polski', 'Pyccknn'];
+const languages = ['English', 'Italiano', 'Español', 'Português', 'Deutsch', 'Polski', 'Français', 'Русский'];
 
 function Language() {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   return (
-    <div className="quadrant">
+    <div className="quadrant language">
       <h2>Language</h2>
-      <div className="option-grid">
+      <div className="language-options">
         {languages.map((language, index) => (
           <Button
             key={index}

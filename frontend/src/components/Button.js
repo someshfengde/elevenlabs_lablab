@@ -1,12 +1,14 @@
 import React from 'react';
 
-const Button = ({ text, isSelected, onClick }) => {
+const SmallButton = ({ text, isSelected, onClick }) => {
   const buttonClass = isSelected ? 'button selected' : 'button';
   return (
-    <button className={buttonClass} onClick={onClick}>
-      {text}
-    </button>
+    <div className={buttonClass} onClick={onClick}>
+      <div className="button-text">
+        {text}
+      </div>
+    </div>
   );
 };
 
-export default Button;
+export default SmallButton;

@@ -1,8 +1,6 @@
 import React from 'react';
 
-
-const StartMeditationButton =  () => {
-
+const StartMeditationButton = () => {
   const handleClick = async () => {
     const goal = document.querySelector('.user-input').value;
 
@@ -10,7 +8,7 @@ const StartMeditationButton =  () => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "background": "rain", 
+      "background": "rain",
       "username": "test",
       "goal": goal,
     });
@@ -22,21 +20,30 @@ const StartMeditationButton =  () => {
       redirect: 'follow'
     };
 
-    const response = await fetch("http://127.0.0.1:5000/generate_meditation",
-    requestOptions).catch(error => console.log('error', error)); 
-    const audioBlob = await response.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
-    const audioElement = new Audio(audioUrl);
-    audioElement.play();
-  
+    try {
+      const response = await fetch("http://127.0.0.1:5000/generate_meditation", requestOptions);
 
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audioElement = new Audio(audioUrl);
+      audioElement.play();
+    } catch (error) {
+      console.log('Fetch error: ', error);
+    }
   };
 
   return (
-    <div className="start-button">
-      <button className="button start" onClick={handleClick}>
-        START MEDITATION
-      </button>
+    <div className="start-button-container">
+      <div className="start-button" onClick={handleClick}>
+          <div className="start-button-text">
+              START MEDITATION
+          </div>
+      </div>
     </div>
   );
 };
