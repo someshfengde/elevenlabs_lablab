@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 function StartMeditationButton() {
   return (
-
     <div className="start-button-container">
       <div className="start-button">
       <Link to="/meditation" className="start-button-text">
