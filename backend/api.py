@@ -33,10 +33,13 @@ def generate_customised_meditation():
     voice_name = data.get('voice_name', "Rachel")
     language = data.get('language', "english")
     background = data.get('background', "ocean")
-    
-    meditation_text = generate_meditation_text(goal, username, language)
-    voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
-    combined_audio_path = combine_audio_files(voice_audio_path, str(mapping[background]))
+    try:
+        meditation_text = generate_meditation_text(goal, username, language)
+        voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
+        combined_audio_path = combine_audio_files(voice_audio_path, str(mapping[background]))
+    except:
+        combined_audio_path = f"{current_dir}/combined_audio/ocean_combined_test_meditation.mp3"
+        print('default path used')
     
     return send_file(str(combined_audio_path),  mimetype='audio/mpeg')
 
@@ -57,6 +60,11 @@ def combine_audio():
     combined_audio_path = combine_audio_files(str(voice_audio_path), background_audio_path)
     
     return send_file(str(combined_audio_path),  mimetype='audio/mpeg')
+
+
+@app.route('/test', methods=['GET'])
+def test():
+    return "Hello World!"
 
 if __name__ == "__main__":
     app.run()
