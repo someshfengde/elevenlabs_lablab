@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LogoTopLeft = () => {
+const Logo = () => {
   return (
     <div className="logo-top-left">
       <img src={`${process.env.PUBLIC_URL}/assets/Logo.png`} alt="Logo" />
@@ -8,4 +8,4 @@ const LogoTopLeft = () => {
   );
 };
 
-export default LogoTopLeft;
+export default Logo;

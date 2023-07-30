@@ -1,22 +1,23 @@
-#%%
 import openai
 import os
 from rich.console import Console
 from dotenv import load_dotenv
 from elevenlabs import set_api_key, generate, play, save
 from pydub import AudioSegment
+from pathlib import Path
 
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 set_api_key(os.getenv("ELEVENLABS_API_KEY"))
+
 preferences = {
     "preferes_guided_meditation": True,
     "background_sounds": ["seashore", "rain"],
     "duration": "5 minutes"
 }
 
-def generate_meditation_text(user_name,goal,language,   preferences = preferences):
+def generate_meditation_text(user_name, goal, language, preferences=preferences):
     """Generates a meditation text for a user with a given goal.
 
     Parameters
@@ -48,7 +49,7 @@ def generate_meditation_text(user_name,goal,language,   preferences = preference
 
     return meditation_text
 
-def generate_voiceover(meditation_text,user_name, voice_name = "Rachel"):
+def generate_voiceover(meditation_text, user_name, voice_name = "Rachel"):
     """Generates a voiceover from meditation text
 
     Parameters
@@ -64,14 +65,19 @@ def generate_voiceover(meditation_text,user_name, voice_name = "Rachel"):
     model="eleven_multilingual_v1"#"eleven_monolingual_v1"
     )
 
-    mp3_file_path = os.path.join(".", "audio_files", f"{user_name}_meditation.mp3")
-    save(audio, mp3_file_path)
+    current_dir = Path(__file__).parent
+    mp3_file_path = current_dir / "audio_files" / f"{user_name}_meditation.mp3"
+    save(audio, str(mp3_file_path))
+    
     return mp3_file_path
 
 
+from pathlib import Path
+
 def combine_audio_files(voice_audio_path , background_audio_path): 
-    voice_audio = AudioSegment.from_mp3(voice_audio_path)
-    background_audio = AudioSegment.from_mp3(background_audio_path) - 20
+    voice_audio = AudioSegment.from_mp3(str(voice_audio_path))
+    background_audio_path = Path(background_audio_path)
+    background_audio = AudioSegment.from_mp3(background_audio_path.as_posix()) - 20
 
     slow_down_factor = 0.9
     slow_audio = voice_audio._spawn(voice_audio.raw_data, overrides={
@@ -80,10 +86,10 @@ def combine_audio_files(voice_audio_path , background_audio_path):
     voice_duration = len(slow_audio)
     background_audio = background_audio[:voice_duration]
     combined_audio = slow_audio.overlay(background_audio)
-    combine_audio_filepath = f"./combined_audio/{background_audio_path.split('/')[-1].split('.')[0]}_combined_{voice_audio_path.split('/')[-1]}"
-    combined_audio.export(combine_audio_filepath, format="mp3")
+    current_dir = Path(__file__).parent
+    combine_audio_filepath = current_dir / "combined_audio" / f"{background_audio_path.stem}_combined_{voice_audio_path.name}"
+    combined_audio.export(str(combine_audio_filepath), format="mp3")
     return combine_audio_filepath
-
 
 # while checking only --------------!------------------
 # # Example usage:

@@ -1,14 +1,14 @@
-// App.js
 import React, { useState } from 'react';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Header from './components/Header';
+import Logo from './components/Logo';
+import Illustration from './components/Illustration';
+import NewUser from './components/NewUser';
 import UserInput from './components/UserInput';
 import Soundscape from './components/Soundscape';
 import Language from './components/Language';
 import Voice from './components/Voice';
-import MeditationPage from './components/MeditationPage';
-// ... (imports)
+import MeditationPage from './pages/MeditationPage';
 
 function App() {
   const [backgroundMusic, setBackgroundMusic] = useState('rain');
@@ -17,30 +17,27 @@ function App() {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const handleBackgroundMusicChange = (music) => {
-      console.log('handleBackgroundMusicChange called');
-
     setBackgroundMusic(music);
   };
 
   const handleVoiceChange = (voice) => {
-    console.log('handleVoiceChange called');
     setSelectedVoice(voice);
   };
 
   const handleLanguageChange = (language) => {
-    console.log('handleLanguageChange called');
     setSelectedLanguage(language);
   };
 
   const handleGoalChange = (goal) => {
-    console.log('handleGoalChange called')
     setGoal(goal);
   };
 
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Logo />
+        <Illustration />
+        <NewUser />
 
         <Routes>
           <Route
@@ -105,6 +102,7 @@ function MainContent({
 }
 
 export default App;
+
 
 
 

@@ -25,11 +25,22 @@ body {
 
 /* App Component */
 .App {
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* This divides the screen into three parts */
+  position: relative; /* Adding this so the .illustration is positioned relative to the .App class */
+  display: flex; /* Change from grid to flex */
+  flex-direction: column; /* Add flex-direction property */
+  justify-content: center; /* Center the contents */
   height: 100vh;
   width: 100%;
   background: linear-gradient(to bottom, #FFFFFF, #88D1BE);
+}
+
+.App .illustration {
+  position: absolute;
+  top: 22vh; /* Adjust this to move the illustration up or down */
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5); /* make it bigger and keep it centered */
+  height: 25vh; /* increase the height */
+  width: auto;
 }
 
 /* Header Component */
@@ -56,11 +67,12 @@ body {
   height: auto;
 }
 
+/* Illustration */
 .illustration {
   position: absolute;
-  top: 30%;
+  top: 50vh; /* Align to the center of the viewport */
   left: 50%;
-  transform: translateX(-50%) scale(1);
+  transform: translate(-50%, -50%) scale(1); /* Adjust to center both vertically and horizontally */
   height: 19.92vh;
   width: auto;
 }
@@ -92,7 +104,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.60px;
   word-wrap: break-word;
-  height: 20px
+  height: 2vh;
 }
 
 /* UserInput Component */
@@ -104,6 +116,7 @@ body {
   width: 100%;
   background-color: #88D1BE;
   gap: 1vh;
+  margin-top: 20vh
 }
 
 .user-input {
@@ -155,7 +168,7 @@ body {
   gap: 1vw; 
   justify-items: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 5vh;
 }
 
 /* Soundscape Component */
@@ -358,7 +371,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: -80px
+  margin-top: -8vh
 }
 
 .start-button {
@@ -377,12 +390,12 @@ body {
   display: inline-flex;
   transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
-  /* Set the initial background image to a narrow linear gradient that's centered */
   background-image: linear-gradient(#4BA3BF, #4BA3BF);
   background-position: center;
   background-size: 0% 100%;
-  /* Transition the background-size property, which will control the width of the gradient */
   transition: background-size 0.3s ease;
+  position: relative;
+  top: 3vh;
 }
 
 .start-button:hover {
@@ -404,4 +417,32 @@ body {
   letter-spacing: 1px;
   word-wrap: break-word;
   transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.meditation-page .illustration {
+  position: absolute;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  height: 25vh;
+  width: auto;
+}
+
+.meditation-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh; /* Adjust this value based on your needs */
+  margin: 1em auto;
+  padding: 1em;
+  background-color: #88D1BE;
+  border-radius: 10px;
 }

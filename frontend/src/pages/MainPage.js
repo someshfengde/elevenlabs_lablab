@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from '../components/Header';
+import Logo from '../components/Logo';
+import NewUser from '../components/NewUser';
 import StartMeditationButton from '../components/StartMeditationButton';
 import Footer from '../components/Footer';
 import TextInput from '../components/UserInput';
@@ -13,19 +14,25 @@ const MainPage = () => {
 
   return (
     <div className="main">
-      <Header />
-      <TextInput />
-      <Quadrant title="Soundscape" buttons={soundscapeButtons} />
-      <Quadrant title="Language" buttons={languageButtons} />
-      <Quadrant title="Duration" buttons={durationButtons} />
-      <Quadrant title="Voice" buttons={voiceButtons} />
-      {/* <StartMeditationButton /> */}
+      <div className="centered-container">
+        <Logo />
+        <NewUser />
+        <TextInput />
+        <Quadrant title="Soundscape" buttons={soundscapeButtons} />
+        <Quadrant title="Language" buttons={languageButtons} />
+        <Quadrant title="Duration" buttons={durationButtons} />
+        <Quadrant title="Voice" buttons={voiceButtons} />
+        <StartMeditationButton />
+      </div>
       <Footer />
     </div>
   );
 };
 
 export default MainPage;
+
+
+
 
 
 
