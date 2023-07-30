@@ -1,53 +1,35 @@
 // Voice.js
 import React from 'react';
-import Button from './Button';
 
-const voices = ['Rachel', 'Thomas', 'Emily'];
+const voices = [
+  { name: 'Atlas', selected: 'Atlas', notSelected: 'Atlas_1' },
+  { name: 'Daniel', selected: 'Daniel', notSelected: 'Daniel_1' },
+  { name: 'Willow', selected: 'Willow', notSelected: 'Willow_1' },
+];
 
 function Voice({ selectedVoice, onVoiceChange }) {
   return (
     <div className="quadrant voice">
       <h2>Voice</h2>
       <div className="voice-options">
-        {voices.map((voice, index) => (
-          <Button
-            key={index}
-            text={voice}
-            isSelected={selectedVoice === voice}
-            onClick={() => onVoiceChange(voice)}
-          />
-        ))}
+        <div className="voice-options-wrapper"> 
+          {voices.map((voice, index) => (
+            <div 
+              key={index}
+              className="voice-option" // add this class name
+              onClick={() => onVoiceChange(voice.name)}
+            >
+              <img
+                className="voice-option-image" // add this class name
+                src={`${process.env.PUBLIC_URL}/assets/voices/${selectedVoice === voice.name ? voice.selected : voice.notSelected}.png`}
+                alt={voice.name}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Voice;
-
-
-// import React, { useState } from 'react';
-// import Button from './Button';
-
-// const voices = ['Rachel', 'Thomas', 'Emily'];
-
-// function Voice() {
-//   const [selectedVoice, setSelectedVoice] = useState(null);
-
-//   return (
-//     <div className="quadrant voice">
-//       <h2>Voice</h2>
-//       <div className="voice-options">
-//         {voices.map((voice, index) => (
-//           <Button
-//             key={index}
-//             text={voice}
-//             isSelected={selectedVoice === voice}
-//             onClick={() => setSelectedVoice(voice)}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Voice;

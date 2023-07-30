@@ -102,6 +102,3 @@ function MainContent({
 }
 
 export default App;
-
-
-

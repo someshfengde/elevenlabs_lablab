@@ -6,9 +6,9 @@ function StartMeditationButton() {
   return (
     <div className="start-button-container">
       <div className="start-button">
-      <Link to="/meditation" className="start-button-text">
-        START MEDITATION
-      </Link>
+        <Link to="/meditation" className="start-button-text">
+          START MEDITATION
+        </Link>
       </div>
     </div>
   );
