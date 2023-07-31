@@ -47,7 +47,7 @@ function MeditationPage({ backgroundMusic, selectedVoice, goal, selectedLanguage
       };
 
       try {
-        const response = await fetch('https://ai-meditation.onrender.com/generate_meditation', requestOptions);
+        const response = await fetch('https://ec33-2401-4900-1c44-c8bb-f470-a359-208a-1b8c.ngrok-free.app/generate_meditation', requestOptions);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
