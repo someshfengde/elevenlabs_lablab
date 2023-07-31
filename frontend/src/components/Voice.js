@@ -1,8 +1,8 @@
 // Voice.js
 import React from 'react';
 const voices = [
-  { name: 'Emily', selected: 'Willow', notSelected: 'Willow_1' },
-  { name: 'Thomas', selected: 'Daniel', notSelected: 'Daniel_1' },
+  { name: 'Emily', selected: 'Emily', notSelected: 'Emily_1' },
+  { name: 'Thomas', selected: 'Thomas', notSelected: 'Thomas_1' },
   { name: 'Rachel', selected: 'ester', notSelected: 'ester_1' },
 ];
 
