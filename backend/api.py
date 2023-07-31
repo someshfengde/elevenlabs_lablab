@@ -6,6 +6,7 @@ from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
+app.config['TIMEOUT'] = 0
 
 @app.after_request
 def add_cors_headers(response):
@@ -37,9 +38,9 @@ def generate_customised_meditation():
         meditation_text = generate_meditation_text(goal, username, language)
         voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
         combined_audio_path = combine_audio_files(voice_audio_path, str(mapping[background]))
-    except:
+    except Exception as e:
         combined_audio_path = f"{current_dir}/combined_audio/ocean_combined_test_meditation.mp3"
-        print('default path used')
+        print(f'default path used due to {e}')
     
     return send_file(str(combined_audio_path),  mimetype='audio/mpeg')
 
