@@ -81,7 +81,7 @@ from pathlib import Path
 def combine_audio_files(voice_audio_path , background_audio_path): 
     voice_audio = AudioSegment.from_mp3(str(voice_audio_path))
     background_audio_path = Path(background_audio_path)
-    background_audio = AudioSegment.from_mp3(background_audio_path.as_posix()) - 20
+    background_audio = AudioSegment.from_mp3(background_audio_path.as_posix()) - 5
 
     slow_down_factor = 0.9
     slow_audio = voice_audio._spawn(voice_audio.raw_data, overrides={
