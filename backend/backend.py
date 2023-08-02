@@ -17,8 +17,6 @@ except:
 
 preferences = {
     "preferes_guided_meditation": True,
-    "background_sounds": ["seashore", "rain"],
-    "duration": "5 minutes"
 }
 
 def generate_meditation_text(user_name, goal, language, preferences=preferences):
