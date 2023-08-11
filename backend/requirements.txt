@@ -8,3 +8,4 @@ Requests==2.31.0
 rich==13.4.2
 gunicorn
 Flask-Cors
+gtts
