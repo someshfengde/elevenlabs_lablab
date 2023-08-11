@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, send_file
-from backend import generate_meditation_text, generate_voiceover, combine_audio_files
+from backend import generate_meditation_text, generate_gtts_voiceover, combine_audio_files
 from flask_cors import CORS
 from pathlib import Path
 
@@ -36,7 +36,7 @@ def generate_customised_meditation():
     background = data.get('background', "ocean")
     try:
         meditation_text = generate_meditation_text(goal, username, language)
-        voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
+        voice_audio_path = generate_gtts_voiceover(meditation_text, username, voice_name)
         combined_audio_path = combine_audio_files(voice_audio_path, str(mapping[background]))
     except Exception as e:
         combined_audio_path = f"{current_dir}/combined_audio/ocean_combined_test_meditation.mp3"
@@ -56,7 +56,7 @@ def combine_audio():
     if not voice_audio_path.is_file():
         print('creating new meditation')
         med_text = generate_meditation_text("meditation", username)
-        voice_audio_path = generate_voiceover(med_text, username)
+        voice_audio_path = generate_gtts_voiceover(med_text, username)
     
     combined_audio_path = combine_audio_files(str(voice_audio_path), background_audio_path)
     
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
 # import os
 # from flask import Flask, request, send_file
-# from backend import generate_meditation_text, generate_voiceover, combine_audio_files
+# from backend import generate_meditation_text, generate_gtts_voiceover, combine_audio_files
 # from flask_cors import CORS
 
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 #     if not background:
 #         background = "ocean"
 #     meditation_text = generate_meditation_text(goal, username, language)
-#     voice_audio_path = generate_voiceover(meditation_text, username, voice_name)
+#     voice_audio_path = generate_gtts_voiceover(meditation_text, username, voice_name)
 #     combined_audio_path = combine_audio_files(voice_audio_path, mapping[background])
 #     return send_file(combined_audio_path,  mimetype='audio/mpeg')
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 #     if not os.path.exists(voice_audio_path):
 #         print('creating new meditation')
 #         med_text = generate_meditation_text("meditation", user)
-#         voice_audio_path = generate_voiceover(med_text, user)
+#         voice_audio_path = generate_gtts_voiceover(med_text, user)
 #     combined_audio_path = combine_audio_files(voice_audio_path, background_audio_path)
 #     return send_file(combined_audio_path,  mimetype='audio/mpeg')
 
